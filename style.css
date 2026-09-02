@@ -1,0 +1,225 @@
+/* ==========================================================================
+   DM Closing System™ — Design System
+   A diagnostic instrument, not a chat app. Every visual choice should read
+   like a precision readout: measured, quiet, exact — until the one moment
+   (Next Move) that deliberately breaks the quiet.
+   ========================================================================== */
+
+
+
+:root{
+  /* ---- Color: deep navy-ink base (Kartik Clarity brand), emerald as the
+     single "system is alive" signal, amber for risk, never used together
+     in the same element. ---- */
+  --ink-950:#05070d;
+  --ink-900:#0a0e1a;
+  --ink-800:#111726;
+  --ink-700:#1a2236;
+  --line:#232c42;
+  --line-soft:#171e30;
+  --fg:#eef1f8;
+  --fg-dim:#aab2c8;
+  --fg-faint:#6b7590;
+  --accent:#22c98a;
+  --accent-dim:#12563f;
+  --accent-glow:rgba(34,201,138,.16);
+  --amber:#e8a545;
+  --amber-dim:#4a3618;
+  --red:#e8586a;
+  --red-dim:#4a1c24;
+  --blue:#5b8def;
+
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+
+  --shadow-card:0 1px 0 rgba(255,255,255,.03) inset, 0 12px 30px -18px rgba(0,0,0,.7);
+
+  --container:1180px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(1100px 560px at 82% -10%, rgba(34,201,138,.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 0%, rgba(91,141,239,.08), transparent 55%),
+    var(--ink-950);
+  color:var(--fg);
+  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:'ss01' 1;
+}
+
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; }
+
+.mono{ font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace; }
+
+::selection{ background:var(--accent-glow); color:var(--fg); }
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ---- Layout ---- */
+.wrap{ max-width:var(--container); margin:0 auto; padding:0 28px; }
+@media (max-width:640px){ .wrap{ padding:0 20px; } }
+
+.section{ padding:96px 0; }
+.section--tight{ padding:64px 0; }
+@media (max-width:780px){
+  .section{ padding:64px 0; }
+  .section--tight{ padding:44px 0; }
+}
+
+/* ---- Typography scale ---- */
+h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.02em; line-height:1.08; }
+h1{ font-size:clamp(2.4rem,4.6vw,4.1rem); font-weight:800; letter-spacing:-.03em; }
+h2{ font-size:clamp(1.9rem,3vw,2.6rem); }
+h3{ font-size:1.35rem; }
+p{ margin:0; color:var(--fg-dim); line-height:1.65; }
+.lede{ font-size:1.2rem; line-height:1.6; color:var(--fg-dim); max-width:52ch; }
+.eyebrow{ font-size:.8rem; color:var(--accent); font-weight:600; letter-spacing:.01em; }
+
+/* ---- Nav ---- */
+.nav{
+  position:sticky; top:0; z-index:40;
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(5,7,13,.78);
+  backdrop-filter:blur(14px);
+}
+.nav__row{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+.nav__brand{ display:flex; align-items:center; gap:12px; }
+.nav__links{ display:flex; align-items:center; gap:32px; }
+.nav__links a{ color:var(--fg-dim); font-size:.94rem; font-weight:500; transition:color .15s; }
+.nav__links a:hover{ color:var(--fg); }
+.nav__cta{ display:flex; align-items:center; gap:14px; }
+@media (max-width:860px){ .nav__links{ display:none; } }
+@media (max-width:560px){
+  .nav__row{ height:64px; }
+  .product-lockup .sub{ display:none; }
+  .product-lockup .name{ font-size:.88rem; white-space:nowrap; }
+  .kc-mark{ width:34px; height:34px; }
+  .kc-mark svg{ width:19px; height:19px; }
+  .nav__cta{ display:none; }
+}
+
+/* Kartik Clarity circle mark — precision monogram, sits beside the product
+   name in the top-left of the nav (per house style: circle mark travels
+   with the primary lockup). */
+.kc-mark{
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:conic-gradient(from 210deg, #14345e, #0a1830 55%, #14345e);
+  border:1px solid #2a4670;
+  box-shadow:0 0 0 1px rgba(91,141,239,.08), 0 6px 16px -6px rgba(91,141,239,.35);
+  flex:none;
+}
+.kc-mark svg{ width:22px; height:22px; }
+
+.product-lockup{ display:flex; flex-direction:column; line-height:1.1; }
+.product-lockup .name{ font-weight:700; font-size:1rem; letter-spacing:-.01em; }
+.product-lockup .name em{ font-style:normal; color:var(--accent); }
+.product-lockup .sub{ font-size:.68rem; color:var(--fg-faint); font-family:'JetBrains Mono',monospace; letter-spacing:.03em; }
+
+/* ---- Buttons ---- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 22px; border-radius:var(--radius-s);
+  font-size:.94rem; font-weight:600; cursor:pointer; border:1px solid transparent;
+  transition:transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  white-space:nowrap;
+}
+.btn:active{ transform:translateY(1px); }
+.btn--primary{
+  background:var(--accent); color:#05130d;
+  box-shadow:0 8px 22px -10px var(--accent-glow), 0 0 0 1px rgba(34,201,138,.25);
+}
+.btn--primary:hover{ background:#2fe0a0; }
+.btn--ghost{
+  background:transparent; color:var(--fg); border-color:var(--line);
+}
+.btn--ghost:hover{ border-color:#3a4568; background:var(--ink-800); }
+.btn--sm{ padding:9px 16px; font-size:.85rem; }
+.btn--lg{ padding:15px 28px; font-size:1.02rem; }
+.btn--block{ width:100%; }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; }
+
+/* ---- Card ---- */
+.card{
+  background:linear-gradient(180deg, var(--ink-800), var(--ink-900));
+  border:1px solid var(--line);
+  border-radius:var(--radius-l);
+  box-shadow:var(--shadow-card);
+}
+
+/* ---- Badge ---- */
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 12px; border-radius:100px;
+  font-size:.76rem; font-weight:600; font-family:'JetBrains Mono',monospace; letter-spacing:.02em;
+  border:1px solid var(--line);
+}
+.badge--accent{ color:var(--accent); background:var(--accent-glow); border-color:var(--accent-dim); }
+.badge--amber{ color:var(--amber); background:rgba(232,165,69,.1); border-color:var(--amber-dim); }
+.badge--red{ color:var(--red); background:rgba(232,88,106,.1); border-color:var(--red-dim); }
+.badge--dot::before{ content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+/* ---- Footer ---- */
+.footer{
+  border-top:1px solid var(--line-soft);
+  padding:56px 0 40px;
+  background:var(--ink-900);
+}
+.footer__row{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap; }
+.footer__brand{ display:flex; align-items:center; gap:16px; }
+
+/* Kartik Clarity rectangular wordmark — bottom-left, per house footer spec:
+   dark navy card, brush wordmark + "Think. Focus. Achieve." lockup. */
+.kc-rect{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 18px 12px 14px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#0d2043,#091430);
+  border:1px solid #223864;
+}
+.kc-rect .kc-mark{ width:34px; height:34px; }
+.kc-rect .kc-mark svg{ width:18px; height:18px; }
+.kc-rect__text{ line-height:1.2; }
+.kc-rect__word{ font-family:'Caveat',cursive; font-size:1.4rem; font-weight:700; color:#fff; }
+.kc-rect__tag{ font-size:.66rem; color:#9fb3da; font-family:'JetBrains Mono',monospace; letter-spacing:.04em; }
+
+.footer__links{ display:flex; gap:28px; flex-wrap:wrap; }
+.footer__links a{ color:var(--fg-faint); font-size:.86rem; }
+.footer__links a:hover{ color:var(--fg-dim); }
+.footer__legal{ margin-top:32px; padding-top:24px; border-top:1px solid var(--line-soft); color:var(--fg-faint); font-size:.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+
+/* ---- Utility ---- */
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media (max-width:900px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+.stack{ display:flex; flex-direction:column; }
+.center{ text-align:center; }
+.mt-8{ margin-top:8px;} .mt-12{margin-top:12px;} .mt-16{margin-top:16px;} .mt-24{margin-top:24px;} .mt-32{margin-top:32px;} .mt-48{margin-top:48px;} .mt-64{margin-top:64px;}
+
+/* Final production pass */
+:root{--accent:#d1b16e;--accent-dim:#5a4828;--accent-glow:rgba(209,177,110,.12);--ink-950:#080a0d;--ink-900:#0d1015;--ink-800:#141922;--ink-700:#1b2230;--line:#2a3342;--line-soft:#1c2330;--fg:#f4f5f2;--fg-dim:#b4bac5;--fg-faint:#707988;}
+body{background:radial-gradient(900px 420px at 78% -10%,rgba(209,177,110,.045),transparent 60%),#080a0d;}
+.nav{background:rgba(8,10,13,.92);border-bottom-color:rgba(255,255,255,.07);}
+.nav__links a.is-active{color:var(--fg);}
+.nav__menu{display:none;border:1px solid var(--line);background:transparent;color:var(--fg-dim);border-radius:6px;padding:8px 10px;font-size:.78rem;}
+@media(max-width:860px){.nav__menu{display:block}.nav__links.is-open{display:flex;position:absolute;left:0;right:0;top:72px;padding:10px 28px 16px;background:#090c11;border-bottom:1px solid var(--line-soft);flex-direction:column;gap:2px}.nav__links.is-open a{padding:11px 8px}.nav__links.is-open a.is-active{background:#141922;border-radius:5px}}
+@media(max-width:560px){.nav__links.is-open{top:64px;padding-left:20px;padding-right:20px}.nav__menu{font-size:.72rem}.nav__cta{display:flex}}
+.btn--primary{background:var(--accent);color:#12100a;box-shadow:0 10px 26px -18px rgba(209,177,110,.75);}
+.btn--primary:hover{background:#dec184;}
+.card{background:linear-gradient(180deg,#151b24,#10151d);border-color:#2a3340;}
